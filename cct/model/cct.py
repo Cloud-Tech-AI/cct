@@ -60,7 +60,3 @@ class CCT(nn.Module):
         for layer in self.encoder:
             src = layer(src)
         return src
-
-
-if __name__ == "__main__":
-    model = CCT(model_name="cct_2")
