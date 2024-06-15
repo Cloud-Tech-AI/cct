@@ -5,18 +5,6 @@ import torch.nn as nn
 from .cbam import CBAM
 
 
-def exists(val):
-    return val is not None
-
-
-def default(val, d):
-    return val if exists(val) else d
-
-
-def pair(t):
-    return t if isinstance(t, tuple) else (t, t)
-
-
 class ConvTokenizer(nn.Module):
     def __init__(
         self,
@@ -85,24 +73,3 @@ class ConvTokenizer(nn.Module):
     def init_weight(m):
         if isinstance(m, nn.Conv2d):
             nn.init.kaiming_normal_(m.weight)
-
-
-if __name__ == "__main__":
-    tokenizer = ConvTokenizer(
-        input_channels=3,
-        output_channels=64,
-        num_conv_layers=1,
-        intermediate_conv_dim=64,
-        kernel_size=7,
-        stride=2,
-        padding=3,
-        pooling_kernel_size=3,
-        pooling_stride=2,
-        pooling_padding=1,
-        cbam=True,
-        activation=None,
-        max_pool=True,
-        conv_bias=False,
-    )
-    x = torch.randn(1, 3, 224, 224)
-    print(tokenizer(x).shape)
